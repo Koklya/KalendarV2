@@ -76,35 +76,39 @@ namespace KalendarV2Namespace {
 			// label_month
 			// 
 			this->label_month->AutoSize = true;
-			this->label_month->Location = System::Drawing::Point(69, 46);
+			this->label_month->Location = System::Drawing::Point(54, 45);
+			this->label_month->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label_month->Name = L"label_month";
-			this->label_month->Size = System::Drawing::Size(92, 13);
+			this->label_month->Size = System::Drawing::Size(135, 20);
 			this->label_month->TabIndex = 0;
 			this->label_month->Text = L"Выберите месяц";
 			// 
 			// label_resualt
 			// 
 			this->label_resualt->AutoSize = true;
-			this->label_resualt->Location = System::Drawing::Point(309, 209);
+			this->label_resualt->Location = System::Drawing::Point(228, 245);
+			this->label_resualt->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label_resualt->Name = L"label_resualt";
-			this->label_resualt->Size = System::Drawing::Size(59, 13);
+			this->label_resualt->Size = System::Drawing::Size(89, 20);
 			this->label_resualt->TabIndex = 1;
 			this->label_resualt->Text = L"Результат";
 			// 
 			// label_years
 			// 
 			this->label_years->AutoSize = true;
-			this->label_years->Location = System::Drawing::Point(513, 57);
+			this->label_years->Location = System::Drawing::Point(314, 47);
+			this->label_years->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label_years->Name = L"label_years";
-			this->label_years->Size = System::Drawing::Size(129, 13);
+			this->label_years->Size = System::Drawing::Size(198, 20);
 			this->label_years->TabIndex = 2;
 			this->label_years->Text = L"Введите год (1919-2069)";
 			// 
 			// button_get_result
 			// 
-			this->button_get_result->Location = System::Drawing::Point(234, 140);
+			this->button_get_result->Location = System::Drawing::Point(139, 136);
+			this->button_get_result->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->button_get_result->Name = L"button_get_result";
-			this->button_get_result->Size = System::Drawing::Size(186, 32);
+			this->button_get_result->Size = System::Drawing::Size(279, 49);
 			this->button_get_result->TabIndex = 3;
 			this->button_get_result->Text = L"Получить календарь";
 			this->button_get_result->UseVisualStyleBackColor = true;
@@ -117,19 +121,22 @@ namespace KalendarV2Namespace {
 				L"1", L"2", L"3", L"4", L"5", L"6", L"7", L"8",
 					L"9", L"10", L"11", L"12"
 			});
-			this->input_month->Location = System::Drawing::Point(72, 93);
+			this->input_month->Location = System::Drawing::Point(58, 70);
+			this->input_month->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->input_month->Name = L"input_month";
-			this->input_month->Size = System::Drawing::Size(121, 21);
+			this->input_month->Size = System::Drawing::Size(194, 28);
 			this->input_month->TabIndex = 4;
 			this->input_month->Text = L"1";
 			this->input_month->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::input_month_SelectedIndexChanged);
 			// 
 			// input_year
 			// 
-			this->input_year->Location = System::Drawing::Point(516, 93);
+			this->input_year->BorderStyle = System::Windows::Forms::BorderStyle::FixedSingle;
+			this->input_year->Location = System::Drawing::Point(318, 72);
+			this->input_year->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->input_year->MaxLength = 4;
 			this->input_year->Name = L"input_year";
-			this->input_year->Size = System::Drawing::Size(86, 20);
+			this->input_year->Size = System::Drawing::Size(194, 26);
 			this->input_year->TabIndex = 6;
 			this->input_year->Text = L"1919";
 			this->input_year->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
@@ -138,9 +145,9 @@ namespace KalendarV2Namespace {
 			// 
 			// MyForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
+			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(820, 452);
+			this->ClientSize = System::Drawing::Size(592, 695);
 			this->Controls->Add(this->input_year);
 			this->Controls->Add(this->input_month);
 			this->Controls->Add(this->button_get_result);
@@ -148,6 +155,7 @@ namespace KalendarV2Namespace {
 			this->Controls->Add(this->label_resualt);
 			this->Controls->Add(this->label_month);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
+			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			this->ResumeLayout(false);
