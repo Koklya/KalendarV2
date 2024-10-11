@@ -71,23 +71,44 @@ namespace KalendarV2Namespace {
 
 	private: String^ getTextFormatMonth(int m) {
 		array<String^>^ months = { "яЌ¬ј–№", "‘≈¬–јЋ№", "ћј–“", "јѕ–≈Ћ№", "ћј…", "»ёЌ№", "»ёЋ№", "ј¬√”—“", "—≈Ќ“яЅ–№", "ќ “яЅ–№", "ЌќяЅ–№", "ƒ≈ јЅ–№" };
-		return months[m - 1];
+		return (months[m - 1])->ToLower();
 	}
 
 	private: String^ getTextFormatDay(int d) {
-		array<String^>^ days = { "ѕЌ", "¬“", "—–", "„“", "ѕ“", "—Ѕ", "¬—" };
+		array<String^>^ days = { "понедельник", "вторник", "среда", "четверг", "п€тница", "суббота", "воскресенье" };
 		return days[d - 1];
 	}
+
+	private: String^ myStew(int num) {
+		String^ nums = System::Convert::ToString(num);
+		String^ res;
+		return nums->Length == 1 ? "  " + nums + "  " : nums + "  ";
+	}
+
+	private: void printCalendar(int month, int year) {
+		array<String^>^ months = { "яЌ¬ј–№", "‘≈¬–јЋ№", "ћј–“", "јѕ–≈Ћ№", "ћј…", "»ёЌ№", "»ёЋ№", "ј¬√”—“", "—≈Ќ“яЅ–№", "ќ “яЅ–№", "ЌќяЅ–№", "ƒ≈ јЅ–№" };
+		result += months[month - 1] + " " + year + "\n\n";
+		array<String^>^ days = { "ѕЌ", "¬“", "—–", "„“", "ѕ“", "—Ѕ", "¬—" };
+		for (int day = 0; day < (days->Length); day++) {
+			result += days[day] + " ";
+		}
+		result += "\n";
+		//
+		int firstDay = calculateFirstDayOfMonth(month, year);
+		for (int i = 0; i < firstDay; ++i) result += "      ";
+		for (int day = 1; day <= daysInMonth(month, year); ++day) {
+			result += myStew(day);
+			if ((firstDay + day) % 7 == 0) {
+				result += "\n";
+			};
+		}
+		result += "\n";
+	}
+
 	protected:
 
 
-
-
 	protected:
-
-
-
-
 
 
 	private:
@@ -124,7 +145,8 @@ namespace KalendarV2Namespace {
 			// label_result
 			// 
 			this->label_result->AutoSize = true;
-			this->label_result->Location = System::Drawing::Point(252, 385);
+			this->label_result->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 8));
+			this->label_result->Location = System::Drawing::Point(179, 377);
 			this->label_result->Margin = System::Windows::Forms::Padding(4, 0, 4, 0);
 			this->label_result->Name = L"label_result";
 			this->label_result->Size = System::Drawing::Size(89, 20);
@@ -185,7 +207,7 @@ namespace KalendarV2Namespace {
 			// label_days_in_month
 			// 
 			this->label_days_in_month->AutoSize = true;
-			this->label_days_in_month->Location = System::Drawing::Point(54, 221);
+			this->label_days_in_month->Location = System::Drawing::Point(39, 270);
 			this->label_days_in_month->Name = L"label_days_in_month";
 			this->label_days_in_month->Size = System::Drawing::Size(132, 20);
 			this->label_days_in_month->TabIndex = 7;
@@ -195,7 +217,7 @@ namespace KalendarV2Namespace {
 			// label_if_year_is_leap
 			// 
 			this->label_if_year_is_leap->AutoSize = true;
-			this->label_if_year_is_leap->Location = System::Drawing::Point(54, 296);
+			this->label_if_year_is_leap->Location = System::Drawing::Point(296, 270);
 			this->label_if_year_is_leap->Name = L"label_if_year_is_leap";
 			this->label_if_year_is_leap->Size = System::Drawing::Size(139, 20);
 			this->label_if_year_is_leap->TabIndex = 8;
@@ -205,7 +227,7 @@ namespace KalendarV2Namespace {
 			// label_first_month_day
 			// 
 			this->label_first_month_day->AutoSize = true;
-			this->label_first_month_day->Location = System::Drawing::Point(54, 258);
+			this->label_first_month_day->Location = System::Drawing::Point(296, 219);
 			this->label_first_month_day->Name = L"label_first_month_day";
 			this->label_first_month_day->Size = System::Drawing::Size(177, 20);
 			this->label_first_month_day->TabIndex = 9;
@@ -225,7 +247,7 @@ namespace KalendarV2Namespace {
 			// label_current_month
 			// 
 			this->label_current_month->AutoSize = true;
-			this->label_current_month->Location = System::Drawing::Point(54, 337);
+			this->label_current_month->Location = System::Drawing::Point(39, 219);
 			this->label_current_month->Name = L"label_current_month";
 			this->label_current_month->Size = System::Drawing::Size(154, 20);
 			this->label_current_month->TabIndex = 11;
@@ -236,7 +258,7 @@ namespace KalendarV2Namespace {
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(9, 20);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(592, 695);
+			this->ClientSize = System::Drawing::Size(645, 695);
 			this->Controls->Add(this->label_current_month);
 			this->Controls->Add(this->button_clear_input_year);
 			this->Controls->Add(this->label_first_month_day);
@@ -274,19 +296,24 @@ namespace KalendarV2Namespace {
 			this->label_result->Text = "ќшибка";
 		}
 		else {
-			this->label_result->Text = "”спех";
+			result = "";
+
+			this->label_days_in_month->Text = "ƒней в мес€це: " + to_string(daysInMonth(pickedYearConverted, pickedMonthConverted));
+			this->label_first_month_day->Text = "ѕервый день мес€ца: " + getTextFormatDay(calculateFirstDayOfMonth(pickedMonthConverted, pickedYearConverted) + 1);
+			this->label_if_year_is_leap->Text = "√од високосный: " + getTextFormatIsYearLeap(pickedYearConverted);
+			this->label_current_month->Text = "¬ыбранный мес€ц: " + getTextFormatMonth(pickedMonthConverted);
+
+			this->label_days_in_month->Visible = true;
+			this->label_first_month_day->Visible = true;
+			this->label_if_year_is_leap->Visible = true;
+			this->label_result->Visible = true;
+			this->label_current_month->Visible = true;
+
+			printCalendar(pickedMonthConverted, pickedYearConverted);
+
+			this->label_result->Text = result;
 		}
 
-		this->label_days_in_month->Text = "ƒней в мес€це: " + to_string(daysInMonth(pickedYearConverted, pickedMonthConverted));
-		this->label_first_month_day->Text = "ѕервый день мес€ца: " + getTextFormatDay(calculateFirstDayOfMonth(pickedMonthConverted, pickedYearConverted) + 1);
-		this->label_if_year_is_leap->Text = "√од високосный: " + getTextFormatIsYearLeap(pickedYearConverted);
-		this->label_current_month->Text = "¬ыбранный мес€ц: " + getTextFormatMonth(pickedMonthConverted);
-
-		this->label_days_in_month->Visible = true;
-		this->label_first_month_day->Visible = true;
-		this->label_if_year_is_leap->Visible = true;
-		this->label_result->Visible = true;
-		this->label_current_month->Visible = true;
 	}
 
 	private: System::Void input_year_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
