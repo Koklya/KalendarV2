@@ -99,7 +99,6 @@ namespace KalendarV2Namespace {
 			this->label_years->Size = System::Drawing::Size(129, 13);
 			this->label_years->TabIndex = 2;
 			this->label_years->Text = L"Введите год (1919-2069)";
-			this->label_years->Click += gcnew System::EventHandler(this, &MyForm::label3_Click);
 			// 
 			// button_get_result
 			// 
@@ -109,6 +108,7 @@ namespace KalendarV2Namespace {
 			this->button_get_result->TabIndex = 3;
 			this->button_get_result->Text = L"Получить календарь";
 			this->button_get_result->UseVisualStyleBackColor = true;
+			this->button_get_result->Click += gcnew System::EventHandler(this, &MyForm::button_get_result_Click);
 			// 
 			// input_month
 			// 
@@ -122,6 +122,7 @@ namespace KalendarV2Namespace {
 			this->input_month->Size = System::Drawing::Size(121, 21);
 			this->input_month->TabIndex = 4;
 			this->input_month->Text = L"1";
+			this->input_month->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::input_month_SelectedIndexChanged);
 			// 
 			// TextBox_input_year
 			// 
@@ -132,6 +133,8 @@ namespace KalendarV2Namespace {
 			this->TextBox_input_year->TabIndex = 6;
 			this->TextBox_input_year->Text = L"1919";
 			this->TextBox_input_year->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->TextBox_input_year->TextChanged += gcnew System::EventHandler(this, &MyForm::TextBox_input_year_TextChanged);
+			this->TextBox_input_year->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::TextBox_input_year_KeyPress);
 			// 
 			// MyForm
 			// 
@@ -153,5 +156,30 @@ namespace KalendarV2Namespace {
 		}
 #pragma endregion
 	
+private: System::Void input_month_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void TextBox_input_year_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+}
+private: System::Void button_get_result_Click(System::Object^ sender, System::EventArgs^ e) {
+	String^ pickedYear = TextBox_input_year->Text;
+	String^ pickedMonth = input_month->Text;
+
+	int pickedYearConverted = System::Convert::ToInt32(pickedYear);
+	int pickedMonthConverted = System::Convert::ToInt32(pickedMonth);
+
+	if ((Int32::Parse(pickedYear) > 2069) || (Int32::Parse(pickedYear) < 1919)) {
+		MessageBox::Show("Введи год в указанном диапазоне!");
+		this->label_resualt->Text = "Ошибка";
+	}
+	else {
+		this->label_resualt->Text = "Успех";
+	}
+}
+
+private: System::Void TextBox_input_year_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+	if ((e->KeyChar >= '0') && (e->KeyChar <= '9'))
+		return;
+	e->Handled = true;
+}
 };
 }
