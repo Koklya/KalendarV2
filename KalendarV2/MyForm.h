@@ -39,7 +39,7 @@ namespace KalendarV2Namespace {
 	private: System::Windows::Forms::Label^ label_years;
 	private: System::Windows::Forms::Button^ button_get_result;
 	private: System::Windows::Forms::ComboBox^ input_month;
-	private: System::Windows::Forms::TextBox^ TextBox_input_year;
+	private: System::Windows::Forms::TextBox^ input_year;
 	protected:
 
 
@@ -70,7 +70,7 @@ namespace KalendarV2Namespace {
 			this->label_years = (gcnew System::Windows::Forms::Label());
 			this->button_get_result = (gcnew System::Windows::Forms::Button());
 			this->input_month = (gcnew System::Windows::Forms::ComboBox());
-			this->TextBox_input_year = (gcnew System::Windows::Forms::TextBox());
+			this->input_year = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
 			// label_month
@@ -124,24 +124,24 @@ namespace KalendarV2Namespace {
 			this->input_month->Text = L"1";
 			this->input_month->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::input_month_SelectedIndexChanged);
 			// 
-			// TextBox_input_year
+			// input_year
 			// 
-			this->TextBox_input_year->Location = System::Drawing::Point(516, 93);
-			this->TextBox_input_year->MaxLength = 4;
-			this->TextBox_input_year->Name = L"TextBox_input_year";
-			this->TextBox_input_year->Size = System::Drawing::Size(86, 20);
-			this->TextBox_input_year->TabIndex = 6;
-			this->TextBox_input_year->Text = L"1919";
-			this->TextBox_input_year->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
-			this->TextBox_input_year->TextChanged += gcnew System::EventHandler(this, &MyForm::TextBox_input_year_TextChanged);
-			this->TextBox_input_year->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::TextBox_input_year_KeyPress);
+			this->input_year->Location = System::Drawing::Point(516, 93);
+			this->input_year->MaxLength = 4;
+			this->input_year->Name = L"input_year";
+			this->input_year->Size = System::Drawing::Size(86, 20);
+			this->input_year->TabIndex = 6;
+			this->input_year->Text = L"1919";
+			this->input_year->TextAlign = System::Windows::Forms::HorizontalAlignment::Center;
+			this->input_year->TextChanged += gcnew System::EventHandler(this, &MyForm::input_year_TextChanged);
+			this->input_year->KeyPress += gcnew System::Windows::Forms::KeyPressEventHandler(this, &MyForm::input_year_KeyPress);
 			// 
 			// MyForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(820, 452);
-			this->Controls->Add(this->TextBox_input_year);
+			this->Controls->Add(this->input_year);
 			this->Controls->Add(this->input_month);
 			this->Controls->Add(this->button_get_result);
 			this->Controls->Add(this->label_years);
@@ -158,10 +158,10 @@ namespace KalendarV2Namespace {
 	
 private: System::Void input_month_SelectedIndexChanged(System::Object^ sender, System::EventArgs^ e) {
 }
-private: System::Void TextBox_input_year_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+private: System::Void input_year_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 }
 private: System::Void button_get_result_Click(System::Object^ sender, System::EventArgs^ e) {
-	String^ pickedYear = TextBox_input_year->Text;
+	String^ pickedYear = input_year->Text;
 	String^ pickedMonth = input_month->Text;
 
 	int pickedYearConverted = System::Convert::ToInt32(pickedYear);
@@ -176,10 +176,10 @@ private: System::Void button_get_result_Click(System::Object^ sender, System::Ev
 	}
 }
 
-private: System::Void TextBox_input_year_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
-	if ((e->KeyChar >= '0') && (e->KeyChar <= '9'))
-		return;
-	e->Handled = true;
-}
+	private: System::Void input_year_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
+		if ((e->KeyChar >= '0') && (e->KeyChar <= '9'))
+			return;
+		e->Handled = true;
+	}
 };
 }
