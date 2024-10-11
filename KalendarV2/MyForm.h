@@ -273,7 +273,7 @@ namespace KalendarV2Namespace {
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
 			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"MyForm";
-			this->Text = L"MyForm";
+			this->Text = L"Календарь";
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
