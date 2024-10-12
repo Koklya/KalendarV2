@@ -105,6 +105,21 @@ namespace KalendarV2Namespace {
 		result += "\n";
 	}
 
+
+	private: int tryGetPickedYearConverted() {
+		try
+		{
+			int res = System::Convert::ToInt32(this->input_year->Text);
+			return res;
+		}
+		catch (...)
+		{
+			MessageBox::Show("Введите год!");
+			this->input_year->Text = "1919";
+			return 1919;
+		}
+	}
+
 	protected:
 
 
@@ -270,7 +285,6 @@ namespace KalendarV2Namespace {
 			this->Controls->Add(this->label_years);
 			this->Controls->Add(this->label_result);
 			this->Controls->Add(this->label_month);
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::SizableToolWindow;
 			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"MyForm";
 			this->Text = L"Календарь";
@@ -285,14 +299,14 @@ namespace KalendarV2Namespace {
 	private: System::Void input_year_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	}
 	private: System::Void button_get_result_Click(System::Object^ sender, System::EventArgs^ e) {
-		String^ pickedYear = input_year->Text;
-		String^ pickedMonth = input_month->Text;
+		String^ pickedYear = this->input_year->Text;
+		String^ pickedMonth = this->input_month->Text;
 
-		int pickedYearConverted = System::Convert::ToInt32(pickedYear);
+		int pickedYearConverted = tryGetPickedYearConverted();
 		int pickedMonthConverted = System::Convert::ToInt32(pickedMonth);
 
-		if ((Int32::Parse(pickedYear) > 2069) || (Int32::Parse(pickedYear) < 1919)) {
-			MessageBox::Show("Введи год в указанном диапазоне!");
+		if ((pickedYearConverted > 2069) || (pickedYearConverted) < 1919) {
+			MessageBox::Show("Введите год в указанном диапазоне!");
 			this->label_result->Text = "Ошибка";
 		}
 		else {
@@ -317,8 +331,9 @@ namespace KalendarV2Namespace {
 	}
 
 	private: System::Void input_year_KeyPress(System::Object^ sender, System::Windows::Forms::KeyPressEventArgs^ e) {
-		if ((e->KeyChar >= '0') && (e->KeyChar <= '9'))
+		if (((e->KeyChar >= '0') && (e->KeyChar <= '9')) || (e->KeyChar == (char)System::Windows::Forms::Keys::Back)) {
 			return;
+		}
 		e->Handled = true;
 	}
 	private: System::Void button_clear_input_year_Click(System::Object^ sender, System::EventArgs^ e) {
